@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Churn Prediction Dashboard</h2>
+<form method="POST">
+    <div class="form-group">
+        <label>
+            Age
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Age"
+               data-bs-trigger="hover focus"
+               data-bs-content="Your current age in years."></i>
+        </label>
+        <input type="number" name="age" class="form-control" required min="0">
+    </div>
+
+    <div class="form-group">
+        <label>
+            Gender
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Gender"
+               data-bs-trigger="hover focus"
+               data-bs-content="Your gender identity."></i>
+        </label>
+        <select name="gender" class="form-control" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Tenure (months)
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Tenure"
+               data-bs-trigger="hover focus"
+               data-bs-content="Months you've been using the service."></i>
+        </label>
+        <input type="number" name="tenure" class="form-control" required min="0">
+    </div>
+
+    <div class="form-group">
+        <label>
+            Usage Frequency
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Usage Frequency"
+               data-bs-trigger="hover focus"
+               data-bs-content="How many times you use the service per month."></i>
+        </label>
+        <input type="number" name="usage_frequency" class="form-control" required min="0">
+    </div>
+
+    <div class="form-group">
+        <label>
+            Support Calls
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Support Calls"
+               data-bs-trigger="hover focus"
+               data-bs-content="How often you've contacted customer support."></i>
+        </label>
+        <input type="number" name="support_calls" class="form-control" required min="0">
+    </div>
+
+    <div class="form-group">
+        <label>
+            Payment Delay (days)
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Payment Delay"
+               data-bs-trigger="hover focus"
+               data-bs-content="How many days your last payment was late."></i>
+        </label>
+        <input type="number" name="payment_delay" class="form-control" required min="0">
+    </div>
+
+    <div class="form-group">
+        <label>
+            Subscription Type
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Subscription Type"
+               data-bs-trigger="hover focus"
+               data-bs-content="Plan level: Basic, Standard, or Premium."></i>
+        </label>
+        <select name="subscription_type" class="form-control" required>
+            <option value="Basic">Basic</option>
+            <option value="Standard">Standard</option>
+            <option value="Premium">Premium</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Contract Length
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Contract Length"
+               data-bs-trigger="hover focus"
+               data-bs-content="Length of your subscription commitment."></i>
+        </label>
+        <select name="contract_length" class="form-control" required>
+            <option value="Monthly">Monthly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Annual">Annual</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Total Spend
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Total Spend"
+               data-bs-trigger="hover focus"
+               data-bs-content="Total amount you've paid."></i>
+        </label>
+        <input type="number" name="total_spend" class="form-control" step="0.01" required min="0">
+    </div>
+
+    <div class="form-group">
+        <label>
+            Last Interaction (days ago)
+            <i class="bi bi-info-circle-fill text-muted ms-1" tabindex="0"
+               data-bs-toggle="popover" title="Last Interaction"
+               data-bs-trigger="hover focus"
+               data-bs-content="Days since your last use of the service."></i>
+        </label>
+        <input type="number" name="last_interaction" class="form-control" required min="0">
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Predict</button>
+</form>
+
+{% if prediction is not none %}
+    <div class="mt-3">
+        <h3>Churn Probability: {{ prediction }}%</h3>
+        {% if prediction >= 50 %}
+            <p class="text-danger">Likely to Churn</p>
+            {% if recommendations %}
+                <h4>Retention Recommendations:</h4>
+                <ul>
+                    {% for rec in recommendations %}
+                        <li>{{ rec.action }} (Priority: {{ rec.priority|round(4) }})</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No specific retention strategies triggered based on input data.</p>
+            {% endif %}
+        {% else %}
+            <p class="text-success">Unlikely to Churn</p>
+        {% endif %}
+    </div>
+{% endif %}
+
+<script>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(el => new bootstrap.Popover(el));
+</script>
+{% endblock %}

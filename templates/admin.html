@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Panel</h2>
+
+<h3>Create New User</h3>
+<form method="POST" action="{{ url_for('admin') }}">
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="create_username" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="create_password" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label><input type="checkbox" name="create_is_admin"> Is Admin</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create User</button>
+</form>
+
+<h3>Users</h3>
+<form method="GET" action="{{ url_for('admin') }}" class="mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Filter by Username</label>
+            <input type="text" name="user_filter" class="form-control" value="{{ user_filter }}" placeholder="Enter username">
+        </div>
+        <div class="col-md-4">
+            <label>Filter by Admin Status</label>
+            <select name="admin_filter" class="form-control">
+                <option value="all" {% if admin_filter == 'all' %}selected{% endif %}>All</option>
+                <option value="yes" {% if admin_filter == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if admin_filter == 'no' %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary form-control">Apply Filters</button>
+        </div>
+    </div>
+    <!-- Pass current prediction filters to maintain state -->
+    <input type="hidden" name="pred_sort" value="{{ pred_sort }}">
+    <input type="hidden" name="pred_order" value="{{ pred_order }}">
+    <input type="hidden" name="pred_user_filter" value="{{ pred_user_filter }}">
+    <input type="hidden" name="pred_date_start" value="{{ pred_date_start }}">
+    <input type="hidden" name="pred_date_end" value="{{ pred_date_end }}">
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a href="{{ url_for('admin', user_sort='id', user_order='desc' if user_sort == 'id' and user_order == 'asc' else 'asc', user_filter=user_filter, admin_filter=admin_filter, pred_sort=pred_sort, pred_order=pred_order, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    ID {% if user_sort == 'id' %}{% if user_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('admin', user_sort='username', user_order='desc' if user_sort == 'username' and user_order == 'asc' else 'asc', user_filter=user_filter, admin_filter=admin_filter, pred_sort=pred_sort, pred_order=pred_order, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    Username {% if user_sort == 'username' %}{% if user_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('admin', user_sort='is_admin', user_order='desc' if user_sort == 'is_admin' and user_order == 'asc' else 'asc', user_filter=user_filter, admin_filter=admin_filter, pred_sort=pred_sort, pred_order=pred_order, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    Admin {% if user_sort == 'is_admin' %}{% if user_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
+                <td>
+                    <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ user.username }}?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>All Predictions</h3>
+<form method="GET" action="{{ url_for('admin') }}" class="mb-3">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Filter by Username</label>
+            <input type="text" name="pred_user_filter" class="form-control" value="{{ pred_user_filter }}" placeholder="Enter username">
+        </div>
+        <div class="col-md-3">
+            <label>Date Start</label>
+            <input type="date" name="pred_date_start" class="form-control" value="{{ pred_date_start }}">
+        </div>
+        <div class="col-md-3">
+            <label>Date End</label>
+            <input type="date" name="pred_date_end" class="form-control" value="{{ pred_date_end }}">
+        </div>
+        <div class="col-md-3">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary form-control">Apply Filters</button>
+        </div>
+    </div>
+    <!-- Pass current user filters to maintain state -->
+    <input type="hidden" name="user_sort" value="{{ user_sort }}">
+    <input type="hidden" name="user_order" value="{{ user_order }}">
+    <input type="hidden" name="user_filter" value="{{ user_filter }}">
+    <input type="hidden" name="admin_filter" value="{{ admin_filter }}">
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a href="{{ url_for('admin', pred_sort='date_submitted', pred_order='desc' if pred_sort == 'date_submitted' and pred_order == 'asc' else 'asc', user_sort=user_sort, user_order=user_order, user_filter=user_filter, admin_filter=admin_filter, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    Date {% if pred_sort == 'date_submitted' %}{% if pred_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('admin', pred_sort='username', pred_order='desc' if pred_sort == 'username' and pred_order == 'asc' else 'asc', user_sort=user_sort, user_order=user_order, user_filter=user_filter, admin_filter=admin_filter, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    User {% if pred_sort == 'username' %}{% if pred_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('admin', pred_sort='prediction', pred_order='desc' if pred_sort == 'prediction' and pred_order == 'asc' else 'asc', user_sort=user_sort, user_order=user_order, user_filter=user_filter, admin_filter=admin_filter, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    Churn Probability {% if pred_sort == 'prediction' %}{% if pred_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>Input Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pred in predictions %}
+            <tr>
+                <td>{{ pred.date_submitted }}</td>
+                <td>{{ pred.user.username }}</td>
+                <td>{{ (pred.prediction * 100)|round(2) }}%</td>
+                <td>{{ pred.input_data }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

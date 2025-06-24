@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Predictions</h2>
+<br>
+
+
+
+<form method="GET" action="{{ url_for('predictions_user') }}" class="mb-3">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Filter by Username</label>
+            <input type="text" name="pred_user_filter" class="form-control" value="{{ pred_user_filter }}" placeholder="Enter username">
+        </div>
+        <div class="col-md-3">
+            <label>Date Start</label>
+            <input type="date" name="pred_date_start" class="form-control" value="{{ pred_date_start }}">
+        </div>
+        <div class="col-md-3">
+            <label>Date End</label>
+            <input type="date" name="pred_date_end" class="form-control" value="{{ pred_date_end }}">
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" name="action" value="filter" class="btn btn-primary me-2 flex-grow-1">Apply Filters</button>
+            <button type="submit" name="action" value="export" class="btn btn-success flex-grow-1">Download CSV</button>
+        </div>
+    </div>
+ 
+
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>User</th>
+            <th>Churn Probability</th>
+            <th>Input Data</th>
+            <th>Retention Strategies</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pred in predictions %}
+            <tr>
+                <td>{{ pred.date_submitted }}</td>
+                <td>{{ pred.user.username }}</td>
+                <td>{{ (pred.prediction * 100)|round(2) }}%</td>
+                <td>{{ pred.input_data }}</td>
+                <td>{{ pred.retention_strategy }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

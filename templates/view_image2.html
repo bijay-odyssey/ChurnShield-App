@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="{{ url_for('static', filename='eda_images/' + filename) }}" alt="Selected Image" 
+             style="max-width: 90%; height: auto; border: 1px solid #ddd; padding: 10px;">
+        <br><br>
+        <a href="{{ url_for('eda_dashboard') }}">
+            <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Back to Dashboard</button>
+        </a>
+    </div>
+</body>
+</html>

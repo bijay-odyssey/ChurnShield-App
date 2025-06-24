@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Add New User</h2> 
+
+<form method="POST" action="{{ url_for('admin_user') }}">
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="create_username" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="create_password" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label><input type="checkbox" name="create_is_admin"> Is Admin</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create User</button>
+</form>
+<br><br>
+<h2>Users</h2>
+<form method="GET" action="{{ url_for('admin_user') }}" class="mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Filter by Username</label>
+            <input type="text" name="user_filter" class="form-control" value="{{ user_filter }}" placeholder="Enter username">
+        </div>
+        <div class="col-md-4">
+            <label>Filter by Admin Status</label>
+            <select name="admin_filter" class="form-control">
+                <option value="all" {% if admin_filter == 'all' %}selected{% endif %}>All</option>
+                <option value="yes" {% if admin_filter == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if admin_filter == 'no' %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary form-control">Apply Filters</button>
+        </div>
+    </div>
+    
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a href="{{ url_for('admin_user', user_sort='id', user_order='desc' if user_sort == 'id' and user_order == 'asc' else 'asc', user_filter=user_filter, admin_filter=admin_filter, pred_sort=pred_sort, pred_order=pred_order, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    ID {% if user_sort == 'id' %}{% if user_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('admin_user', user_sort='username', user_order='desc' if user_sort == 'username' and user_order == 'asc' else 'asc', user_filter=user_filter, admin_filter=admin_filter, pred_sort=pred_sort, pred_order=pred_order, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    Username {% if user_sort == 'username' %}{% if user_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('admin_user', user_sort='is_admin', user_order='desc' if user_sort == 'is_admin' and user_order == 'asc' else 'asc', user_filter=user_filter, admin_filter=admin_filter, pred_sort=pred_sort, pred_order=pred_order, pred_user_filter=pred_user_filter, pred_date_start=pred_date_start, pred_date_end=pred_date_end) }}">
+                    Admin {% if user_sort == 'is_admin' %}{% if user_order == 'asc' %}↑{% else %}↓{% endif %}{% endif %}
+                </a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
+                <td>
+                    <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ user.username }}?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+ 
+{% endblock %}

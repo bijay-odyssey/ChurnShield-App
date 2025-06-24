@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Exploratory Data Analysis Dashboard</h2>
+<div class="container mt-5">
+    <!-- <h2 class="mb-4">Exploratory Data Analysis Dashboard</h2> -->
+    
+    <!-- Top Row - Correlation and Feature Importance -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-primary text-white">
+                    <h4>Correlation Matrix</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('view_image', filename=eda_images.correlation_matrix) }}" >
+                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.correlation_matrix) }}" 
+                         class="img-fluid" 
+                         alt="Correlation Matrix">
+                    </a>
+                    <p class="mt-2 text-muted">Feature correlation analysis</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-info text-white">
+                    <h4>Feature Importance</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('view_image', filename=eda_images.feature_importance) }}">
+                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.feature_importance) }}" 
+                         class="img-fluid" 
+                         alt="Feature Importance">
+                    </a>
+                    <p class="mt-2 text-muted">Model feature importance ranking</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Churn Analysis Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h4>Churn Analysis</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="{{ url_for('view_image', filename=eda_images.contract_churn) }}">
+                                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.contract_churn) }}" 
+                                         class="img-fluid" 
+                                         alt="Contract Type Churn">
+                                    </a>
+                                    <p class="mt-2 text-muted">Churn by contract type</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="{{ url_for('view_image', filename=eda_images.subscription_churn) }}" >
+                                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.subscription_churn) }}" 
+                                         class="img-fluid" 
+                                         alt="Subscription Churn">
+                                    </a>
+                                    <p class="mt-2 text-muted">Churn by subscription type</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="{{ url_for('view_image', filename=eda_images.support_calls_churn) }}">
+                                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.support_calls_churn) }}" 
+                                         class="img-fluid" 
+                                         alt="Support Calls Churn">
+                                    </a>
+                                    <p class="mt-2 text-muted">Churn vs support calls</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="{{ url_for('view_image', filename=eda_images.tenure_churn) }}" >
+                                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.tenure_churn) }}" 
+                                         class="img-fluid" 
+                                         alt="Tenure Churn">
+                                    </a>
+                                    <p class="mt-2 text-muted">Churn by customer tenure</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demographic Analysis -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4>Age Distribution</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('view_image', filename=eda_images.age_distribution) }}" >
+                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.age_distribution) }}" 
+                         class="img-fluid" 
+                         alt="Age Distribution">
+                    </a>
+                    <p class="mt-2 text-muted">Customer age distribution</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4>Gender Distribution</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('view_image', filename=eda_images.gender_distribution) }}" >
+                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.gender_distribution) }}" 
+                         class="img-fluid" 
+                         alt="Gender Distribution">
+                    </a>
+                    <p class="mt-2 text-muted">Customer gender distribution</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4>Payment Delay</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ url_for('view_image', filename=eda_images.payment_delay_churn) }}" >
+                    <img src="{{ url_for('static', filename='eda_images/' + eda_images.payment_delay_churn) }}" 
+                         class="img-fluid" 
+                         alt="Payment Delay">
+                    </a>     
+                    <p class="mt-2 text-muted">Churn by payment delays</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Performance -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h4>Model Performance</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{{ url_for('view_image', filename=eda_images.confusion_matrix) }}" >
+                                <img src="{{ url_for('static', filename='eda_images/' + eda_images.confusion_matrix) }}" 
+                                     class="img-fluid" 
+                                     alt="Confusion Matrix">
+                            </a>
+                            <p class="mt-2 text-muted">Classification model confusion matrix</p>
+                        </div>
+                    
+                        <!-- <div class="col-md-6">
+                            <a href="{{ url_for('static', filename='eda_images/' + eda_images.churn_distribution) }}" target="_blank">
+                                <img src="{{ url_for('static', filename='eda_images/' + eda_images.churn_distribution) }}" 
+                                     class="img-fluid" 
+                                     alt="Churn Distribution">
+                            </a>
+                            <p class="mt-2 text-muted">Class distribution in dataset</p>
+                        </div> -->
+                        <div class="col-md-6">
+                            <a href="{{ url_for('view_image', filename=eda_images.churn_distribution) }}" >
+                                <img src="{{ url_for('static', filename='eda_images/' + eda_images.churn_distribution) }}" 
+                                     class="img-fluid" 
+                                     alt="Churn Distribution">
+                            </a>
+                            <p class="mt-2 text-muted">Class distribution in dataset</p>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    transition: transform 0.2s;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.card:hover {
+    transform: translateY(-5px) scale(1.05);  
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+.img-fluid {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+</style>
+{% endblock %}

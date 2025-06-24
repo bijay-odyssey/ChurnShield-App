@@ -1,0 +1,16 @@
+minor Enhancements:
+
+#_User Experience (UX) Improvements:
+		-  Included tooltips / hover-over explanations for form fields (e.g., what Support Calls means) to improve usability, especially for non-technical clients.
+
+ 
+	
+#_Security Enhancements:
+		- Login Throttling / Delays
+Added  small delay (1–2 seconds) after each failed login.  [DONE]
+
+#_ Download  Data (CSV) [DONE]
+
+#_ logo [DONE]
+
+#_add icons [DONE]

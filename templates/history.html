@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Prediction History</h2>
+
+<!-- Filter Form -->
+<form method="GET" action="{{ url_for('history') }}" class="mb-3">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label for="pred_date_start" class="form-label">Start Date</label>
+            <input type="date" name="pred_date_start" id="pred_date_start" class="form-control" value="{{ pred_date_start }}">
+        </div>
+        <div class="col-md-3">
+            <label for="pred_date_end" class="form-label">End Date</label>
+            <input type="date" name="pred_date_end" id="pred_date_end" class="form-control" value="{{ pred_date_end }}">
+        </div>
+        <div class="col-md-3">
+            <label for="pred_prob_min" class="form-label">Min Churn Prob (%)</label>
+            <input type="number" name="pred_prob_min" id="pred_prob_min" class="form-control" min="0" max="100" value="{{ pred_prob_min }}">
+        </div>
+        <div class="col-md-3">
+            <label for="pred_prob_max" class="form-label">Max Churn Prob (%)</label>
+            <input type="number" name="pred_prob_max" id="pred_prob_max" class="form-control" min="0" max="100" value="{{ pred_prob_max }}">
+        </div>
+    </div>
+    <div class="mt-3">
+        <button type="submit" name="action" value="filter" class="btn btn-primary me-2">Apply Filters</button>
+        <button type="submit" name="action" value="export" class="btn btn-success me-2">Download CSV</button>
+        <a href="{{ url_for('history') }}" class="btn btn-secondary">Clear Filters</a>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Churn Probability</th>
+            <th>Input Data</th>
+            <th>Retention Strategies</th>
+        </tr>
+    </thead>
+
+
+<tbody>
+    {% for pred in predictions %}
+        <tr>
+            <td>{{ pred.date_submitted }}</td>
+            <td>
+                {{ (pred.prediction * 100)|round(2) }}%
+                {% if (pred.prediction * 100) >= 50 %}
+                    <span class="text-danger">(Likely to Churn)</span>
+                {% else %}
+                    <span class="text-success">(Unlikely to Churn)</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if pred.input_data %}
+                    {{ pred.input_data|from_json|tojson|safe }}
+                {% else %}
+                    <em>No data</em>
+                {% endif %}
+            </td>
+            <td>
+                {% if pred.retention_strategy %}
+                    {% set strategies = pred.retention_strategy|from_json %}
+                    {% if strategies %}
+                        <ul>
+                        {% for strategy in strategies %}
+                            <li>{{ strategy.action }} (Priority: {{ strategy.priority|round(4) }})</li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        {% if pred.prediction > 0.5 %}
+                            <p>No specific retention strategies triggered.</p>
+                        {% else %}
+                            <p>Not likely to churn.</p>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if pred.prediction > 0.5 %}
+                        <p>No specific retention strategies triggered.</p>
+                    {% else %}
+                        <p>Not likely to churn.</p>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+
+
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
