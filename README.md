@@ -2,7 +2,7 @@
 
 ChurnShield is an AI-powered web application that predicts customer churn and provides personalized retention strategies. Built with Flask and integrated with a machine learning pipeline, the app enables businesses to make data-driven decisions for improving customer retention.
 
-<img width="500" height="500" alt="logo1" src="https://github.com/user-attachments/assets/f2d111d9-b2d3-4d6c-bbbb-1a5515a10d74" />
+![Project Logo]<img width="100" height="100" alt="logo1" src="https://github.com/user-attachments/assets/f2d111d9-b2d3-4d6c-bbbb-1a5515a10d74" />
 
 ---
 
@@ -30,7 +30,9 @@ In today’s data-driven landscape, customer churn directly affects profitabilit
 ---
 
 ## 📁 Project Structure
-bijay-odyssey/
+
+```
+ChurnShield-App/
 │
 ├── app.py # Main Flask app
 ├── app copy.py # Backup / alternate version
@@ -53,8 +55,7 @@ bijay-odyssey/
 │
 └── .github/workflows/ # GitHub Actions CI/CD
 └── deploy.yml # Deploy workflow
-
-
+```
 ---
 
 ## 🚀 Features
@@ -78,22 +79,30 @@ bijay-odyssey/
 ```bash
 git clone https://github.com/bijay-odyssey/ChurnShield-App.git
 cd ChurnShield-App
+```
 
 ### 2. Create a Virtual Environment
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
 ### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
 ### 4. Set Up the Database
+```bash
 flask db init
 flask db migrate
 flask db upgrade
+```
 
 ### 5. Run the Application
+```bash
 python app.py
-
+```
 
 Visit the app at: http://localhost:5000
 
