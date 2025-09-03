@@ -1,12 +1,14 @@
 # ChurnShield - Customer Churn Prediction Web App
 
-ChurnShield is an AI-powered web application that predicts customer churn and provides personalized retention strategies. Built with Flask and integrated with a machine learning pipeline, the app enables businesses to make data-driven decisions for improving customer retention.
+ChurnShield is an AI-powered web application that predicts customer churn and provides personalized retention strategies. 
 
-![Project Logo]<img width="100" height="100" alt="logo1" src="https://github.com/user-attachments/assets/f2d111d9-b2d3-4d6c-bbbb-1a5515a10d74" />
+Built with Flask and integrated with a machine learning pipeline, the app enables businesses to make data-driven decisions for improving customer retention.
+
+<img width="60" height="60" alt="logo" src="https://github.com/user-attachments/assets/f2d111d9-b2d3-4d6c-bbbb-1a5515a10d74" />
 
 ---
 
-## 🧠 Motivation
+## Motivation
 
 In today’s data-driven landscape, customer churn directly affects profitability and long-term growth. ChurnShield solves this by:
 
@@ -16,7 +18,7 @@ In today’s data-driven landscape, customer churn directly affects profitabilit
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠Tech Stack
 
 | Layer        | Technologies |
 |--------------|--------------|
@@ -34,31 +36,31 @@ In today’s data-driven landscape, customer churn directly affects profitabilit
 ```
 ChurnShield-App/
 │
-├── app.py # Main Flask app
-├── app copy.py # Backup / alternate version
-├── database.py # DB setup and config
-├── inspect_model.py # Model inspection / testing
-├── requirements.txt # Python dependencies
-├── runtime.txt # Python runtime for deployment (Railway)
-├── nixpacks.toml # Nixpacks config (buildpacks)
+├── app.py                                                         # Main Flask app
+├── app copy.py                                                    # Backup / alternate version
+├── database.py                                                    # DB setup and config
+├── inspect_model.py                                               # Model inspection / testing
+├── requirements.txt                                               # Python dependencies
+├── runtime.txt                                                    # Python runtime for deployment (Railway)
+├── nixpacks.toml                                                  # Nixpacks config (buildpacks)
 │
-├── data.csv # Sample dataset
-├── dirlist.txt # Utility: directory listing
-├── minorupgrades.txt # Notes for improvements
-├── Untitled design.png # Project banner/logo
+├── data.csv                                                       # Sample dataset
+├── dirlist.txt                                                    # Utility: directory listing
+├── minorupgrades.txt                                              # Notes for improvements
+├── Untitled design.png                                            # Project banner/logo
 │
-├── migrations/ # Flask-Migrate folder
-├── instance/ # Config & local SQLite DB
-├── models/ # ML model & feature engineering logic
-├── static/ # CSS, JS, images, EDA graphs
-├── templates/ # HTML templates (base.html, etc.)
+├── migrations/                                                    # Flask-Migrate folder
+├── instance /                                                     # Config & local SQLite DB
+├── models/                                                        # DB model logic
+├── static/                                                        # CSS, JS, images, EDA graphs
+├── templates/                                                     # HTML templates (base.html, etc.)
 │
-└── .github/workflows/ # GitHub Actions CI/CD
-└── deploy.yml # Deploy workflow
+└── .github/workflows/                                             # GitHub Actions CI/CD
+└── deploy.yml                                                     # Deploy workflow
 ```
 ---
 
-## 🚀 Features
+## Features
 
 - 🎯 **Churn Prediction**: Trained Random Forest Classifier
 - 📊 **EDA & Insights**: Pre-generated visualizations (boxplots, correlation, etc.)
@@ -72,7 +74,7 @@ ChurnShield-App/
 
 ---
 
-## 📦 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 
@@ -105,8 +107,9 @@ python app.py
 ```
 
 Visit the app at: http://localhost:5000
+---
 
-###⚙️ Deployment (Railway or any WSGI server)
+## Deployment (Railway or any WSGI server)
 
 The project is pre-configured for deployment via Railway using:
 
