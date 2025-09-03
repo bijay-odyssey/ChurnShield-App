@@ -51,7 +51,7 @@ ChurnShield-App/
 │
 ├── migrations/                                                    # Flask-Migrate folder
 ├── instance /                                                     # Config & local SQLite DB
-├── models/                                                        # DB model logic
+├── models/                                                        # ML model
 ├── static/                                                        # CSS, JS, images, EDA graphs
 ├── templates/                                                     # HTML templates (base.html, etc.)
 │
