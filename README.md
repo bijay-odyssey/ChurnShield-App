@@ -62,12 +62,12 @@ ChurnShield-App/
 
 ## Features
 
-- 🎯 **Churn Prediction**: Trained Random Forest Classifier
-- 📊 **EDA & Insights**: Pre-generated visualizations (boxplots, correlation, etc.)
-- 🧠 **Feature Engineering**: Recency, Support Calls, Spend, Tenure, etc.
-- 🧾 **Retention Strategy Generator**: Dynamic suggestions based on feature weights
-- 🧑‍💻 **User Authentication**: Admin/user roles with Flask-Login
-- 📂 **Admin Dashboard**:
+-  **Churn Prediction**: Trained Random Forest Classifier
+-  **EDA & Insights**: Pre-generated visualizations (boxplots, correlation, etc.)
+-  **Feature Engineering**: Recency, Support Calls, Spend, Tenure, etc.
+-  **Retention Strategy Generator**: Dynamic suggestions based on feature weights
+-  **User Authentication**: Admin/user roles with Flask-Login
+-  **Admin Dashboard**:
   - Manage users & predictions
   - View EDA charts
   - Export prediction history as CSV
